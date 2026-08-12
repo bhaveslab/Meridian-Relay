@@ -48,9 +48,22 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     })
     const sheets = google.sheets({ version: 'v4', auth })
 
-    // Package name always logs in English (sale.packageNameEn, sourced from
-    // packages-*.json name.en) so the sheet stays consistent regardless of
-    // which language the referrer had the UI in — see build spec §4.
+    // Column order matches the "Meridian Relay — Sales Log" sheet's actual
+    // header row exactly: Date | Business | Package | Commission |
+    // Payment Type | Trade Details | Delivered to Engineer | Referrer.
+    // "Delivered to Engineer" is a manual ops field the app has no data
+    // for, so it's always left blank for staff to fill in later.
+    //
+    // Package name always logs in English (sale.packageNameEn, sourced
+    // from packages-*.json name.en) so the sheet stays consistent
+    // regardless of which language the referrer had the UI in — see
+    // build spec §4.
+    //
+    // NOTE: this sheet has no column for market, packageId, price, or
+    // contactInfo — those fields are captured by the app but currently
+    // have nowhere to go in this log. See README for the open item.
+    const paymentTypeLabel: Record<string, string> = { cash: 'Cash', card: 'Card', trade: 'Trade' }
+
     await sheets.spreadsheets.values.append({
       spreadsheetId: sheetId,
       range: 'A1',
@@ -59,19 +72,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         values: [
           [
             sale.timestamp,
-            sale.referrerName,
-            sale.market,
-            sale.packageId,
-            sale.packageNameEn,
             sale.businessName,
-            sale.contactInfo ?? '',
-            sale.price,
+            sale.packageNameEn,
             // Deliberate market check, not a fallback — a US sale's null
             // comision always logs as the literal 'negotiated', never 0
             // or blank (which would misread as "no commission").
             sale.comision === null ? 'negotiated' : sale.comision,
-            sale.paymentMethod,
+            paymentTypeLabel[sale.paymentMethod] ?? sale.paymentMethod,
             sale.notes ?? '',
+            '',
+            sale.referrerName,
           ],
         ],
       },
