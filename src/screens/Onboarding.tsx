@@ -3,6 +3,7 @@ import { useApp } from '../context/AppContext'
 import { tr } from '../lib/i18n'
 import strings from '../data/strings.json'
 import type { Lang, Market } from '../types'
+import { GlobeBackground } from '../components/GlobeBackground'
 
 export function Onboarding() {
   const { completeOnboarding } = useApp()
@@ -23,10 +24,13 @@ export function Onboarding() {
   const s = strings.onboarding
 
   return (
-    <div className="onboarding-screen">
-      <h1>{tr(s.title, lang)}</h1>
-      <p>{tr(s.subtitle, lang)}</p>
-      <form onSubmit={handleSubmit}>
+    <>
+      <GlobeBackground />
+      <div className="onboarding-screen">
+        <div className="onboarding-tagline">{tr(strings.appName, lang)}</div>
+        <h1>{tr(s.title, lang)}</h1>
+        <p>{tr(s.subtitle, lang)}</p>
+        <form onSubmit={handleSubmit}>
         <div className="form-field">
           <label htmlFor="referrer-name">{tr(s.nameLabel, lang)}</label>
           <input
@@ -70,7 +74,12 @@ export function Onboarding() {
         <button type="submit" className="btn btn-primary">
           {tr(s.continueButton, lang)}
         </button>
-      </form>
-    </div>
+        </form>
+      </div>
+
+      <div className="onboarding-scroll-spacer">
+        <p>{tr(strings.tagline, lang)}</p>
+      </div>
+    </>
   )
 }
