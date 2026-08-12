@@ -14,7 +14,8 @@
     "marketCA": { "es": "Centroamérica", "en": "Central America" },
     "marketUS": { "es": "Estados Unidos", "en": "United States" },
     "continueButton": { "es": "Continuar", "en": "Continue" },
-    "nameRequired": { "es": "Por favor escribe tu nombre.", "en": "Please enter your name." }
+    "nameRequired": { "es": "Por favor escribe tu nombre.", "en": "Please enter your name." },
+    "languageRequired": { "es": "Por favor elige un idioma.", "en": "Please choose a language." }
   },
   "nav": {
     "packages": { "es": "Paquetes", "en": "Packages" },

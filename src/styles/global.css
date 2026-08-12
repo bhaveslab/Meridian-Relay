@@ -584,6 +584,18 @@ p {
   margin-top: 4px;
 }
 
+.bilingual-line {
+  display: block;
+}
+
+.bilingual-line + .bilingual-line {
+  margin-top: 0.18em;
+}
+
+.bilingual-line-secondary {
+  color: var(--relay-ink-soft);
+}
+
 .globe-canvas {
   position: fixed;
   inset: 0;
