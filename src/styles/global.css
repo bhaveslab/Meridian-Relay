@@ -339,6 +339,29 @@ p {
   margin-bottom: 6px;
 }
 
+.commission-line {
+  text-align: center;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 12px;
+  color: var(--relay-ink-soft);
+  margin-bottom: 16px;
+}
+
+.commission-value {
+  color: var(--relay-gold-bright);
+  font-weight: 600;
+}
+
+.sale-row-commission {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--relay-gold-bright);
+  margin-top: 2px;
+  white-space: nowrap;
+}
+
 .mission-note {
   background: rgba(217, 164, 65, 0.08);
   border: 1px solid var(--relay-border);

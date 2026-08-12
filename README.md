@@ -40,46 +40,59 @@ queued locally (offline-first — see `src/lib/sync.ts`); nothing is lost.
 
 ## Data model
 
-- `src/data/packages-ca.json` — Central America field pricing/copy (from the
-  build spec's "Final Package Copy"). Independent of the Meridian website by
+CA and US packages are **not** the same schema — `src/types.ts` defines them
+as a discriminated union (`CaPackage | UsPackage`, keyed by a `market` field
+baked into each JSON entry) and every screen branches on `pkg.market`
+deliberately rather than assuming one shape fits both. Don't try to unify
+them into one shape without checking with the business first.
+
+- `src/data/packages-ca.json` — Central America field set. Narrative copy
+  (`hook`/`contexto`/`oferta`), a fixed `entregables` list, an `icon` +
+  `tier`, and a flat dollar `comision`. **Pricing/commission are final,
+  locked numbers** (not placeholders): $75/$25, $350/$100, $750/$200,
+  $1,500/$350 for packages 1–4. Independent of the Meridian website by
   design — see spec §1/§6.
-- `src/data/packages-us.json` — **stub.** Same schema, but every package is a
-  `TODO` placeholder with `precioDesde: 0` / `comision: 0`. Per spec §1a this
-  content is supposed to be *ported* from the live Meridian website, not
-  freshly written — do not use in the field until populated.
+- `src/data/packages-us.json` — US sales force set. Single `description`
+  instead of hook/contexto/oferta, no icon/tier, optional priced `subtiers`
+  (only "Web Architecture" has them), and `comisionNegociada: true` instead
+  of a flat `comision` — commission is negotiated per deal, never a fixed
+  dollar figure.
 - `src/data/strings.json` — all UI copy, `{es, en}` pairs.
 
 Market selection (`relay-market` in `localStorage`) picks which packages file
-loads for that device.
+loads for that device — see `AppContext.tsx`.
+
+### Commission display — deliberate branch, not a fallback
+
+Every screen that shows a commission (`PackageDetail`, `LogSale`, `MySales`)
+checks `pkg.market`/`sale.comision === null` explicitly. CA always shows a
+dollar amount; US always shows "Commission: Negotiated" / "Comisión:
+negociada" — never a number, never a silent `$0`. `Sale.comision` is
+`number | null`, where `null` means negotiated; the Sheets sync
+(`api/registrar-venta.ts`) writes the literal `'negotiated'` for those rows
+rather than a blank or zero, so reporting can't misread it as "no
+commission."
 
 ## Open items (from the build spec — none of these block the code shipping, but do block going live)
 
 1. **New Google Sheet.** Create one, share it with the service account
    (Editor), and set `GOOGLE_SHEET_ID`. Consider a `market` column or
-   separate tabs for CA vs. US, since payout/reporting differ per spec §3.
-2. **CA commission values (`comision`) are placeholders.** Package 1 ($25 on
-   a $50 floor) came directly from the spec's schema example. Packages 2–4
-   use the same 50%-of-`precioDesde` pattern as a placeholder
-   ($50 / $175 / $350) — confirm real payout numbers before using these for
-   actual commission payouts.
-3. **`packages-us.json` needs real content**, ported from the current
-   Meridian site copy (not a fresh rewrite — see spec §1a) once that site is
-   accessible/finalized. US `comision` and `precioDesde` are a separate
-   business decision from the CA file, not a converted version of it.
-4. **Stripe Payment Links.** All `stripeLink` fields are empty on purpose —
-   the "Pay by Card" button only renders when a package has one (see
-   `PackageDetail.tsx`). Populate once Payment Links exist for current field
-   pricing, and confirm billing-address collection is on for each link
-   (Dashboard setting).
-5. **Repo/Vercel:** dedicated repo (`meridian-relay`) and its own Vercel
+   separate tabs for CA vs. US, since payout/reporting differ per spec §3 —
+   and US rows will have `'negotiated'` in the commission column instead of
+   a number.
+2. **Stripe Payment Links.** All `stripeLink` fields are empty on purpose —
+   the "Pay by Card" button only renders when a package has one (CA only;
+   US packages don't have a `stripeLink` field at all). Populate once
+   Payment Links exist for current field pricing, and confirm
+   billing-address collection is on for each link (Dashboard setting).
+3. **Repo/Vercel:** dedicated repo (`meridian-relay`) and its own Vercel
    project, per the "no shared/flat-file multi-app repos" infra rule — kept
    fully separate from the `bhaves-lab` and Meridian-site codebases.
 
 ## Mechanics
 
-Packages → Detail (context/offer/deliverables, price reveal) → Log Sale →
-My Sales → Script cards. Every sale tags the on-device referrer name and
-market (`relay-referrer-name`, `relay-market`), and always logs the
-package's **English** name to the sheet (`name.en`) regardless of the UI
-language the referrer was using, so reporting stays consistent — see
-`api/registrar-venta.ts`.
+Packages → Detail (price reveal) → Log Sale → My Sales → Script cards. Every
+sale tags the on-device referrer name and market (`relay-referrer-name`,
+`relay-market`), and always logs the package's **English** name to the sheet
+(`name.en`) regardless of the UI language the referrer was using, so
+reporting stays consistent — see `api/registrar-venta.ts`.

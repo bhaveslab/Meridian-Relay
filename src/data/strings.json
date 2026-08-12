@@ -36,7 +36,9 @@
     "revealPriceButton": { "es": "Mostrar precio", "en": "Reveal price" },
     "startingAt": { "es": "Desde", "en": "Starting at" },
     "logSaleButton": { "es": "Registrar Venta", "en": "Log Sale" },
-    "payByCard": { "es": "Pagar con Tarjeta", "en": "Pay by Card" }
+    "payByCard": { "es": "Pagar con Tarjeta", "en": "Pay by Card" },
+    "descriptionLabel": { "es": "Descripción", "en": "Description" },
+    "subtiersLabel": { "es": "Opciones", "en": "Options" }
   },
   "logSale": {
     "title": { "es": "Registrar Venta", "en": "Log Sale" },
@@ -72,7 +74,8 @@
       "en": "Quick talking points for each package, in your own words."
     },
     "hookLabel": { "es": "Apertura", "en": "Opener" },
-    "ofertaLabel": { "es": "Propuesta", "en": "Offer" }
+    "ofertaLabel": { "es": "Propuesta", "en": "Offer" },
+    "descriptionLabel": { "es": "Descripción", "en": "Description" }
   },
   "syncBanner": {
     "offline": { "es": "Sin conexión — tus ventas se guardan en el dispositivo.", "en": "Offline — your sales are saved on this device." },
@@ -86,6 +89,8 @@
   },
   "common": {
     "back": { "es": "Atrás", "en": "Back" },
-    "close": { "es": "Cerrar", "en": "Close" }
+    "close": { "es": "Cerrar", "en": "Close" },
+    "commissionLabel": { "es": "Comisión", "en": "Commission" },
+    "commissionNegotiated": { "es": "Negociada", "en": "Negotiated" }
   }
 }

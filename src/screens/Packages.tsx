@@ -2,8 +2,9 @@ import { useApp } from '../context/AppContext'
 import { tr } from '../lib/i18n'
 import strings from '../data/strings.json'
 import { PackageCard } from '../components/PackageCard'
+import type { PackageId } from '../types'
 
-export function Packages({ onOpenPackage }: { onOpenPackage: (id: number) => void }) {
+export function Packages({ onOpenPackage }: { onOpenPackage: (id: PackageId) => void }) {
   const { packages, lang } = useApp()
 
   return (

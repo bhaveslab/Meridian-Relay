@@ -1,59 +1,45 @@
 {
-  "_todo": "STUB — not launch-ready. Per the build spec (§1a), US package copy must be ported from the live Meridian website (not freshly written) once that site content is accessible/finalized. Pricing and commission below are placeholders only — do not use for real sales until populated. See README 'Open Items'.",
   "packages": [
     {
-      "id": 1,
-      "name": { "es": "[TODO: portar del sitio] Paquete 1", "en": "[TODO: port from site] Package 1" },
-      "tier": { "es": "TODO", "en": "TODO" },
-      "icon": "📍",
-      "hook": { "es": "TODO — copiar del sitio de Meridian.", "en": "TODO — port from the Meridian site." },
-      "contexto": { "es": "TODO", "en": "TODO" },
-      "oferta": { "es": "TODO", "en": "TODO" },
-      "entregables": { "es": ["TODO"], "en": ["TODO"] },
-      "precioDesde": 0,
-      "comision": 0,
-      "sinComparacion": true,
-      "misionNota": { "es": "TODO", "en": "TODO" },
-      "stripeLink": ""
+      "id": "us-1",
+      "market": "us",
+      "name": { "en": "Personal & Family", "es": "Personal y Familiar" },
+      "precioDesde": 250,
+      "description": {
+        "en": "A private app for your household: shared chores and goals tracked in real time, encrypted journaling, and an offline-capable family directory. Built once, yours outright.",
+        "es": "Una aplicación privada para su hogar: tareas y metas compartidas en tiempo real, diario encriptado, y un directorio familiar que funciona sin conexión. Construida una vez, completamente suya."
+      },
+      "subtiers": null,
+      "comisionNegociada": true
     },
     {
-      "id": 2,
-      "name": { "es": "[TODO: portar del sitio] Paquete 2", "en": "[TODO: port from site] Package 2" },
-      "tier": { "es": "TODO", "en": "TODO" },
-      "icon": "🌐",
-      "hook": { "es": "TODO — copiar del sitio de Meridian.", "en": "TODO — port from the Meridian site." },
-      "contexto": { "es": "TODO", "en": "TODO" },
-      "oferta": { "es": "TODO", "en": "TODO" },
-      "entregables": { "es": ["TODO"], "en": ["TODO"] },
-      "precioDesde": 0,
-      "comision": 0,
-      "stripeLink": ""
+      "id": "us-2",
+      "market": "us",
+      "name": { "en": "Business Suites", "es": "Suites de Negocio" },
+      "precioDesde": 750,
+      "description": {
+        "en": "Booking, ordering, and dispatch built for how your business actually runs — salons, restaurants, transport fleets. Client history, scheduling, and real-time status in one system you own.",
+        "es": "Reservas, pedidos y despacho construidos para cómo su negocio realmente funciona — salones, restaurantes, flotas de transporte. Historial de clientes, programación y estado en tiempo real en un sistema que usted posee."
+      },
+      "subtiers": null,
+      "comisionNegociada": true
     },
     {
-      "id": 3,
-      "name": { "es": "[TODO: portar del sitio] Paquete 3", "en": "[TODO: port from site] Package 3" },
-      "tier": { "es": "TODO", "en": "TODO" },
-      "icon": "🏨",
-      "hook": { "es": "TODO — copiar del sitio de Meridian.", "en": "TODO — port from the Meridian site." },
-      "contexto": { "es": "TODO", "en": "TODO" },
-      "oferta": { "es": "TODO", "en": "TODO" },
-      "entregables": { "es": ["TODO"], "en": ["TODO"] },
-      "precioDesde": 0,
-      "comision": 0,
-      "stripeLink": ""
-    },
-    {
-      "id": 4,
-      "name": { "es": "[TODO: portar del sitio] Paquete 4", "en": "[TODO: port from site] Package 4" },
-      "tier": { "es": "TODO", "en": "TODO" },
-      "icon": "🏢",
-      "hook": { "es": "TODO — copiar del sitio de Meridian.", "en": "TODO — port from the Meridian site." },
-      "contexto": { "es": "TODO", "en": "TODO" },
-      "oferta": { "es": "TODO", "en": "TODO" },
-      "entregables": { "es": ["TODO"], "en": ["TODO"] },
-      "precioDesde": 0,
-      "comision": 0,
-      "stripeLink": ""
+      "id": "us-3",
+      "market": "us",
+      "name": { "en": "Web Architecture", "es": "Arquitectura Web" },
+      "precioDesde": 1200,
+      "description": {
+        "en": "From a single fast landing page to a full interactive build with its own 3D layer.",
+        "es": "Desde una sola página de aterrizaje rápida hasta una construcción interactiva completa con su propia capa 3D."
+      },
+      "subtiers": [
+        { "name": { "en": "One-Page", "es": "Página Única" }, "precio": 1200 },
+        { "name": { "en": "Tri-Page", "es": "Tres Páginas" }, "precio": 2000 },
+        { "name": { "en": "Five-Page Suite", "es": "Suite de Cinco Páginas" }, "precio": 3000 },
+        { "name": { "en": "Apex Build", "es": "Construcción Apex" }, "precio": 5000, "plus": true }
+      ],
+      "comisionNegociada": true
     }
   ]
 }

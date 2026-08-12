@@ -5,7 +5,13 @@ import strings from '../data/strings.json'
 export function MySales() {
   const { sales, lang, refreshSync } = useApp()
   const s = strings.mySales
-  const totalCommission = sales.reduce((sum, sale) => sum + sale.comision, 0)
+  const c = strings.common
+
+  // Deliberate market check, not a fallback — negotiated (US) sales never
+  // contribute a dollar figure to the total, they're counted separately.
+  const numericSales = sales.filter((sale) => sale.comision !== null)
+  const negotiatedCount = sales.length - numericSales.length
+  const totalCommission = numericSales.reduce((sum, sale) => sum + (sale.comision ?? 0), 0)
 
   return (
     <div>
@@ -15,11 +21,18 @@ export function MySales() {
         <div className="empty-state">{tr(s.empty, lang)}</div>
       ) : (
         <>
-          <div className="card" style={{ marginBottom: 12, display: 'flex', justifyContent: 'space-between' }}>
+          <div className="card" style={{ marginBottom: 12, display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
             <span className="section-label" style={{ marginBottom: 0 }}>
               {tr(s.totalCommission, lang)}
             </span>
-            <span style={{ fontWeight: 800 }}>${totalCommission}</span>
+            <span style={{ textAlign: 'right' }}>
+              <span style={{ fontWeight: 800 }}>${totalCommission.toLocaleString()}</span>
+              {negotiatedCount > 0 && (
+                <div className="sale-row-meta">
+                  + {negotiatedCount} {tr(c.commissionNegotiated, lang)}
+                </div>
+              )}
+            </span>
           </div>
 
           <div className="card">
@@ -33,7 +46,12 @@ export function MySales() {
                     {tr(sale.synced ? s.synced : s.pending, lang)}
                   </span>
                 </div>
-                <div className="sale-row-amount">${sale.price}</div>
+                <div style={{ textAlign: 'right' }}>
+                  <div className="sale-row-amount">${sale.price.toLocaleString()}</div>
+                  <div className="sale-row-commission">
+                    {tr(c.commissionLabel, lang)}: {sale.comision !== null ? `$${sale.comision.toLocaleString()}` : tr(c.commissionNegotiated, lang)}
+                  </div>
+                </div>
               </div>
             ))}
           </div>

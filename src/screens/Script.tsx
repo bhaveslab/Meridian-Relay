@@ -14,16 +14,27 @@ export function Script() {
       {packages.map((pkg) => (
         <div className="card script-card" key={pkg.id}>
           <div className="script-card-name">
-            {pkg.icon} {tr(pkg.name, lang)}
+            {pkg.market === 'ca' && `${pkg.icon} `}
+            {tr(pkg.name, lang)}
           </div>
-          <div className="script-card-block">
-            <div className="script-card-block-label">{tr(s.hookLabel, lang)}</div>
-            <div className="script-card-block-text">{tr(pkg.hook, lang)}</div>
-          </div>
-          <div className="script-card-block">
-            <div className="script-card-block-label">{tr(s.ofertaLabel, lang)}</div>
-            <div className="script-card-block-text">{tr(pkg.oferta, lang)}</div>
-          </div>
+
+          {pkg.market === 'ca' ? (
+            <>
+              <div className="script-card-block">
+                <div className="script-card-block-label">{tr(s.hookLabel, lang)}</div>
+                <div className="script-card-block-text">{tr(pkg.hook, lang)}</div>
+              </div>
+              <div className="script-card-block">
+                <div className="script-card-block-label">{tr(s.ofertaLabel, lang)}</div>
+                <div className="script-card-block-text">{tr(pkg.oferta, lang)}</div>
+              </div>
+            </>
+          ) : (
+            <div className="script-card-block">
+              <div className="script-card-block-label">{tr(s.descriptionLabel, lang)}</div>
+              <div className="script-card-block-text">{tr(pkg.description, lang)}</div>
+            </div>
+          )}
         </div>
       ))}
     </div>

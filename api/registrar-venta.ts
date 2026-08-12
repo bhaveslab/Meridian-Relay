@@ -6,13 +6,15 @@ interface SaleBody {
   timestamp: string
   referrerName: string
   market: 'ca' | 'us'
-  packageId: number
+  packageId: number | string
   packageNameEn: string
   packageNameLocal: string
   businessName: string
   contactInfo?: string
   price: number
-  comision: number
+  // null means "negotiated" — always the case for US sales, never a
+  // dollar figure to fall back on. See comment at the append call below.
+  comision: number | null
   paymentMethod: string
   notes?: string
 }
@@ -64,7 +66,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             sale.businessName,
             sale.contactInfo ?? '',
             sale.price,
-            sale.comision,
+            // Deliberate market check, not a fallback — a US sale's null
+            // comision always logs as the literal 'negotiated', never 0
+            // or blank (which would misread as "no commission").
+            sale.comision === null ? 'negotiated' : sale.comision,
             sale.paymentMethod,
             sale.notes ?? '',
           ],

@@ -2,20 +2,21 @@ import { useState, type FormEvent } from 'react'
 import { useApp } from '../context/AppContext'
 import { tr } from '../lib/i18n'
 import strings from '../data/strings.json'
-import type { PaymentMethod, Sale } from '../types'
+import type { PackageId, PaymentMethod, Sale } from '../types'
 
 export function LogSale({
   packageId,
   onCancel,
   onDone,
 }: {
-  packageId: number
+  packageId: PackageId
   onCancel: () => void
   onDone: () => void
 }) {
   const { packages, lang, market, referrerName, logSale } = useApp()
   const pkg = packages.find((p) => p.id === packageId)
   const s = strings.logSale
+  const c = strings.common
 
   const [businessName, setBusinessName] = useState('')
   const [contactInfo, setContactInfo] = useState('')
@@ -45,7 +46,9 @@ export function LogSale({
       businessName: businessName.trim(),
       contactInfo: contactInfo.trim(),
       price,
-      comision: pkg.comision,
+      // Deliberate market check, not a fallback — US sales are always
+      // negotiated (null), never a flat CA-style dollar commission.
+      comision: pkg.market === 'ca' ? pkg.comision : null,
       paymentMethod,
       notes: notes.trim(),
       synced: false,
@@ -65,8 +68,15 @@ export function LogSale({
         <h2>{tr(s.title, lang)}</h2>
         <p className="section-label">{tr(s.packageLabel, lang)}</p>
         <p style={{ fontWeight: 700 }}>
-          {pkg.icon} {tr(pkg.name, lang)}
+          {pkg.market === 'ca' && `${pkg.icon} `}
+          {tr(pkg.name, lang)}
         </p>
+        <div className="commission-line" style={{ textAlign: 'left', marginBottom: 16 }}>
+          {tr(c.commissionLabel, lang)}:{' '}
+          <span className="commission-value">
+            {pkg.market === 'ca' ? `$${pkg.comision.toLocaleString()}` : tr(c.commissionNegotiated, lang)}
+          </span>
+        </div>
 
         <form onSubmit={handleSubmit}>
           <div className="form-field">

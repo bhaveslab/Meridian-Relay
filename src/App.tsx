@@ -11,11 +11,12 @@ import { PackageDetail } from './screens/PackageDetail'
 import { LogSale } from './screens/LogSale'
 import { MySales } from './screens/MySales'
 import { Script } from './screens/Script'
+import type { PackageId } from './types'
 
 type Screen =
   | { name: 'packages' }
-  | { name: 'detail'; packageId: number }
-  | { name: 'logSale'; packageId: number }
+  | { name: 'detail'; packageId: PackageId }
+  | { name: 'logSale'; packageId: PackageId }
   | { name: 'mySales' }
   | { name: 'script' }
 
