@@ -1,0 +1,59 @@
+{
+  "_todo": "STUB — not launch-ready. Per the build spec (§1a), US package copy must be ported from the live Meridian website (not freshly written) once that site content is accessible/finalized. Pricing and commission below are placeholders only — do not use for real sales until populated. See README 'Open Items'.",
+  "packages": [
+    {
+      "id": 1,
+      "name": { "es": "[TODO: portar del sitio] Paquete 1", "en": "[TODO: port from site] Package 1" },
+      "tier": { "es": "TODO", "en": "TODO" },
+      "icon": "📍",
+      "hook": { "es": "TODO — copiar del sitio de Meridian.", "en": "TODO — port from the Meridian site." },
+      "contexto": { "es": "TODO", "en": "TODO" },
+      "oferta": { "es": "TODO", "en": "TODO" },
+      "entregables": { "es": ["TODO"], "en": ["TODO"] },
+      "precioDesde": 0,
+      "comision": 0,
+      "sinComparacion": true,
+      "misionNota": { "es": "TODO", "en": "TODO" },
+      "stripeLink": ""
+    },
+    {
+      "id": 2,
+      "name": { "es": "[TODO: portar del sitio] Paquete 2", "en": "[TODO: port from site] Package 2" },
+      "tier": { "es": "TODO", "en": "TODO" },
+      "icon": "🌐",
+      "hook": { "es": "TODO — copiar del sitio de Meridian.", "en": "TODO — port from the Meridian site." },
+      "contexto": { "es": "TODO", "en": "TODO" },
+      "oferta": { "es": "TODO", "en": "TODO" },
+      "entregables": { "es": ["TODO"], "en": ["TODO"] },
+      "precioDesde": 0,
+      "comision": 0,
+      "stripeLink": ""
+    },
+    {
+      "id": 3,
+      "name": { "es": "[TODO: portar del sitio] Paquete 3", "en": "[TODO: port from site] Package 3" },
+      "tier": { "es": "TODO", "en": "TODO" },
+      "icon": "🏨",
+      "hook": { "es": "TODO — copiar del sitio de Meridian.", "en": "TODO — port from the Meridian site." },
+      "contexto": { "es": "TODO", "en": "TODO" },
+      "oferta": { "es": "TODO", "en": "TODO" },
+      "entregables": { "es": ["TODO"], "en": ["TODO"] },
+      "precioDesde": 0,
+      "comision": 0,
+      "stripeLink": ""
+    },
+    {
+      "id": 4,
+      "name": { "es": "[TODO: portar del sitio] Paquete 4", "en": "[TODO: port from site] Package 4" },
+      "tier": { "es": "TODO", "en": "TODO" },
+      "icon": "🏢",
+      "hook": { "es": "TODO — copiar del sitio de Meridian.", "en": "TODO — port from the Meridian site." },
+      "contexto": { "es": "TODO", "en": "TODO" },
+      "oferta": { "es": "TODO", "en": "TODO" },
+      "entregables": { "es": ["TODO"], "en": ["TODO"] },
+      "precioDesde": 0,
+      "comision": 0,
+      "stripeLink": ""
+    }
+  ]
+}

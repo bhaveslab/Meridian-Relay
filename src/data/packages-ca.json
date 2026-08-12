@@ -1,0 +1,147 @@
+{
+  "packages": [
+    {
+      "id": 1,
+      "name": { "es": "Pin y WhatsApp Rápido", "en": "Quick Pin & WhatsApp" },
+      "tier": { "es": "Micro Starter", "en": "Micro Starter" },
+      "icon": "📍",
+      "hook": {
+        "es": "Lo que ya está funcionando, ahora también en Google y WhatsApp.",
+        "en": "What's already working for them — now on Google and WhatsApp too."
+      },
+      "contexto": {
+        "es": "El negocio ya tiene sus clientes de siempre. Esto es para que también lo encuentren los que buscan en su celular.",
+        "en": "The business already has its regulars. This is so the people searching on their phone can find it too."
+      },
+      "oferta": {
+        "es": "Lo sumamos al mapa de Google y le damos una vía rápida y directa para que le escriban por WhatsApp.",
+        "en": "We add them to Google's map and give them a fast, direct way for people to reach them on WhatsApp."
+      },
+      "entregables": {
+        "es": [
+          "Registro en Google Maps y Apple Maps",
+          "Enlace de WhatsApp con mensaje automático",
+          "Código QR impreso para el mostrador"
+        ],
+        "en": [
+          "Google & Apple Maps listing",
+          "WhatsApp link with auto-message",
+          "Printed QR code for the counter"
+        ]
+      },
+      "precioDesde": 50,
+      "comision": 25,
+      "sinComparacion": true,
+      "misionNota": {
+        "es": "No es que les falte algo — es que lo que ya tienen merece ser visto por más gente.",
+        "en": "It's not that something's missing — what they've already built deserves to be seen by more people."
+      },
+      "stripeLink": ""
+    },
+    {
+      "id": 2,
+      "name": { "es": "Sitio Web Estándar", "en": "Standard Website" },
+      "tier": { "es": "Identity Package", "en": "Identity Package" },
+      "icon": "🌐",
+      "hook": {
+        "es": "Un espacio propio en internet que refleja lo que ya son.",
+        "en": "A space of their own online that reflects who they already are."
+      },
+      "contexto": {
+        "es": "Sus clientes actuales ya los conocen y confían. Esto es para que los nuevos sientan esa misma confianza antes de llegar.",
+        "en": "Their current customers already know and trust them. This is so new ones feel that same trust before they even arrive."
+      },
+      "oferta": {
+        "es": "Construimos su propia vitrina digital, moderna y disponible las 24 horas, junto a todo lo que ya hacen bien.",
+        "en": "We build their own modern digital storefront, live 24 hours a day, right alongside everything they already do well."
+      },
+      "entregables": {
+        "es": [
+          "Dirección web propia por 1 año",
+          "Página para celular con menú, fotos y precios",
+          "Perfil completo en Google Maps",
+          "Anuncio en el Directorio Oficial Meridian"
+        ],
+        "en": [
+          "Own web address, 1 year",
+          "Mobile-first page with menu, photos, pricing",
+          "Full Google Maps profile",
+          "Listing in the Official Meridian Directory"
+        ]
+      },
+      "precioDesde": 100,
+      "comision": 50,
+      "stripeLink": ""
+    },
+    {
+      "id": 3,
+      "name": { "es": "Suite de Turismo y Hoteles", "en": "Tourism & Hotel Suite" },
+      "tier": { "es": "Multi-Page & Booking", "en": "Multi-Page & Booking" },
+      "icon": "🏨",
+      "hook": {
+        "es": "Sus propias reservas, directas, en su propio idioma y en inglés también.",
+        "en": "Their own bookings, direct, in their language and in English too."
+      },
+      "contexto": {
+        "es": "Ya reciben huéspedes y turistas felices. Esto es para que reciban más reservas directas, sin perder parte de lo ganado en comisión.",
+        "en": "They're already welcoming happy guests. This is so more of those bookings come direct, without losing a share to commission."
+      },
+      "oferta": {
+        "es": "Un portal de reservas en dos idiomas, para que cada reserva sea completamente suya.",
+        "en": "A two-language booking portal, so every reservation is fully theirs."
+      },
+      "entregables": {
+        "es": [
+          "Sitio de 4 páginas (Inicio, Servicios, Galería, Reservas)",
+          "Cambio de idioma Español/Inglés",
+          "Reservas directas a correo o WhatsApp",
+          "Catálogo digital en código QR"
+        ],
+        "en": [
+          "4-page site (Home, Services, Gallery, Booking)",
+          "Spanish/English toggle",
+          "Direct bookings to email or WhatsApp",
+          "QR-code digital catalog"
+        ]
+      },
+      "precioDesde": 350,
+      "comision": 175,
+      "stripeLink": ""
+    },
+    {
+      "id": 4,
+      "name": { "es": "Nodo Comercial y Desarrollo", "en": "Commercial Node & Development" },
+      "tier": { "es": "Full Enterprise", "en": "Full Enterprise" },
+      "icon": "🏢",
+      "hook": {
+        "es": "Para mostrar al mundo lo que ya construyeron.",
+        "en": "To show the world what they've already built."
+      },
+      "contexto": {
+        "es": "El negocio ya tiene el tamaño y la calidad para llegar más lejos. Esto es para llegar a clientes serios fuera de su zona.",
+        "en": "The business already has the scale and quality to reach further. This is for reaching serious clients beyond their area."
+      },
+      "oferta": {
+        "es": "Una plataforma comercial avanzada con catálogo o recorrido completo, hecha a la altura de lo que ya lograron.",
+        "en": "An advanced commercial platform with full catalog or walkthrough, built to match what they've already achieved."
+      },
+      "entregables": {
+        "es": [
+          "Tienda en línea con pasarela de pagos",
+          "Muestrario en video HD",
+          "Píxeles de seguimiento para anuncios",
+          "Estado de Socio Preferencial Meridian"
+        ],
+        "en": [
+          "Online store with payment gateway",
+          "HD video showcase",
+          "Ad tracking pixels",
+          "Meridian Preferred Partner status"
+        ]
+      },
+      "precioDesde": 700,
+      "comision": 350,
+      "stripeLink": ""
+    }
+  ]
+}

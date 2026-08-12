@@ -1,0 +1,90 @@
+{
+  "appName": { "es": "Relay by Meridian", "en": "Relay by Meridian" },
+  "tagline": {
+    "es": "Lleva el negocio, un referido a la vez.",
+    "en": "Carry the business forward, one referral at a time."
+  },
+  "onboarding": {
+    "title": { "es": "Bienvenido a Relay", "en": "Welcome to Relay" },
+    "subtitle": { "es": "Antes de empezar, cuéntanos quién eres.", "en": "Before we start, tell us who you are." },
+    "nameLabel": { "es": "Tu nombre", "en": "Your name" },
+    "namePlaceholder": { "es": "Escribe tu nombre", "en": "Enter your name" },
+    "languageLabel": { "es": "Idioma", "en": "Language" },
+    "marketLabel": { "es": "Mercado", "en": "Market" },
+    "marketCA": { "es": "Centroamérica", "en": "Central America" },
+    "marketUS": { "es": "Estados Unidos", "en": "United States" },
+    "continueButton": { "es": "Continuar", "en": "Continue" },
+    "nameRequired": { "es": "Por favor escribe tu nombre.", "en": "Please enter your name." }
+  },
+  "nav": {
+    "packages": { "es": "Paquetes", "en": "Packages" },
+    "mySales": { "es": "Mis Ventas", "en": "My Sales" },
+    "script": { "es": "Guion", "en": "Script" }
+  },
+  "packagesScreen": {
+    "title": { "es": "Paquetes", "en": "Packages" },
+    "startingAt": { "es": "Desde", "en": "Starting at" },
+    "viewDetails": { "es": "Ver detalles", "en": "View details" }
+  },
+  "detail": {
+    "back": { "es": "Atrás", "en": "Back" },
+    "contextoLabel": { "es": "El panorama", "en": "The picture today" },
+    "ofertaLabel": { "es": "La propuesta", "en": "The offer" },
+    "entregablesLabel": { "es": "Qué incluye", "en": "What's included" },
+    "missionNoteLabel": { "es": "Nota", "en": "Note" },
+    "revealPriceButton": { "es": "Mostrar precio", "en": "Reveal price" },
+    "startingAt": { "es": "Desde", "en": "Starting at" },
+    "logSaleButton": { "es": "Registrar Venta", "en": "Log Sale" },
+    "payByCard": { "es": "Pagar con Tarjeta", "en": "Pay by Card" }
+  },
+  "logSale": {
+    "title": { "es": "Registrar Venta", "en": "Log Sale" },
+    "packageLabel": { "es": "Paquete", "en": "Package" },
+    "businessNameLabel": { "es": "Nombre del negocio", "en": "Business name" },
+    "businessNamePlaceholder": { "es": "Ej. Panadería Doña Rosa", "en": "e.g. Rosa's Bakery" },
+    "contactLabel": { "es": "Contacto (teléfono o WhatsApp)", "en": "Contact (phone or WhatsApp)" },
+    "contactPlaceholder": { "es": "Opcional", "en": "Optional" },
+    "priceLabel": { "es": "Precio acordado (USD)", "en": "Agreed price (USD)" },
+    "paymentMethodLabel": { "es": "Forma de pago", "en": "Payment method" },
+    "paymentCash": { "es": "Efectivo", "en": "Cash" },
+    "paymentCard": { "es": "Tarjeta", "en": "Card" },
+    "paymentTrade": { "es": "Intercambio / Trueque", "en": "Trade / Exchange" },
+    "notesLabel": { "es": "Notas", "en": "Notes" },
+    "notesPlaceholder": { "es": "Opcional", "en": "Optional" },
+    "submitButton": { "es": "Guardar Venta", "en": "Save Sale" },
+    "cancelButton": { "es": "Cancelar", "en": "Cancel" },
+    "successMessage": { "es": "¡Venta registrada!", "en": "Sale logged!" },
+    "businessNameRequired": { "es": "Por favor escribe el nombre del negocio.", "en": "Please enter a business name." }
+  },
+  "mySales": {
+    "title": { "es": "Mis Ventas", "en": "My Sales" },
+    "empty": { "es": "Todavía no has registrado ventas.", "en": "You haven't logged any sales yet." },
+    "totalCommission": { "es": "Comisión total", "en": "Total commission" },
+    "synced": { "es": "Sincronizado", "en": "Synced" },
+    "pending": { "es": "Pendiente de sincronizar", "en": "Pending sync" },
+    "retrySync": { "es": "Reintentar sincronización", "en": "Retry sync" }
+  },
+  "script": {
+    "title": { "es": "Guion", "en": "Script" },
+    "subtitle": {
+      "es": "Frases rápidas para cada paquete, en tus palabras.",
+      "en": "Quick talking points for each package, in your own words."
+    },
+    "hookLabel": { "es": "Apertura", "en": "Opener" },
+    "ofertaLabel": { "es": "Propuesta", "en": "Offer" }
+  },
+  "syncBanner": {
+    "offline": { "es": "Sin conexión — tus ventas se guardan en el dispositivo.", "en": "Offline — your sales are saved on this device." },
+    "pendingPrefix": { "es": "", "en": "" },
+    "pendingSuffix": { "es": "venta(s) sin sincronizar", "en": "sale(s) not yet synced" }
+  },
+  "settings": {
+    "referrerLabel": { "es": "Referidor", "en": "Referrer" },
+    "changeLanguage": { "es": "Idioma", "en": "Language" },
+    "changeMarket": { "es": "Mercado", "en": "Market" }
+  },
+  "common": {
+    "back": { "es": "Atrás", "en": "Back" },
+    "close": { "es": "Cerrar", "en": "Close" }
+  }
+}
