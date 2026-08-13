@@ -37,7 +37,8 @@
         "es": "No es que les falte algo — es que lo que ya tienen merece ser visto por más gente.",
         "en": "It's not that something's missing — what they've already built deserves to be seen by more people."
       },
-      "stripeLink": ""
+      "stripeLink": "",
+      "depositLink": ""
     },
     {
       "id": 2,
@@ -73,7 +74,8 @@
       },
       "precioDesde": 350,
       "comision": 100,
-      "stripeLink": ""
+      "stripeLink": "",
+      "depositLink": ""
     },
     {
       "id": 3,
@@ -109,7 +111,8 @@
       },
       "precioDesde": 750,
       "comision": 200,
-      "stripeLink": ""
+      "stripeLink": "",
+      "depositLink": ""
     },
     {
       "id": 4,
@@ -145,7 +148,8 @@
       },
       "precioDesde": 1500,
       "comision": 350,
-      "stripeLink": ""
+      "stripeLink": "",
+      "depositLink": ""
     }
   ]
 }

@@ -28,7 +28,13 @@ export interface CaPackage {
   comision: number
   sinComparacion?: boolean
   misionNota?: LocalizedString
+  // Full-price Stripe Payment Link — deliberately left empty at launch
+  // (not deferred by accident); "Pay by Card" only renders when this is set.
   stripeLink: string
+  // Separate 25%-of-precioDesde deposit Stripe Payment Link, used to kick
+  // off work before the full price is collected. Independent of
+  // stripeLink — a package can have one, both, or neither set.
+  depositLink: string
 }
 
 export interface UsPackageSubtier {

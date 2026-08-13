@@ -37,6 +37,7 @@
     "startingAt": { "es": "Desde", "en": "Starting at" },
     "logSaleButton": { "es": "Registrar Venta", "en": "Log Sale" },
     "payByCard": { "es": "Pagar con Tarjeta", "en": "Pay by Card" },
+    "payDeposit": { "es": "Pagar Depósito (25%)", "en": "Pay Deposit (25%)" },
     "descriptionLabel": { "es": "Descripción", "en": "Description" },
     "subtiersLabel": { "es": "Opciones", "en": "Options" }
   },

@@ -102,10 +102,22 @@ export function PackageDetail({
               className="btn btn-primary"
               onClick={() => onLogSale(pkg.id)}
               type="button"
-              style={{ marginBottom: pkg.market === 'ca' && pkg.stripeLink ? 10 : 0 }}
+              style={{ marginBottom: pkg.market === 'ca' && (pkg.stripeLink || pkg.depositLink) ? 10 : 0 }}
             >
               {tr(s.logSaleButton, lang)}
             </button>
+
+            {pkg.market === 'ca' && pkg.depositLink && (
+              <a
+                className="btn btn-secondary"
+                href={pkg.depositLink}
+                target="_blank"
+                rel="noreferrer"
+                style={{ marginBottom: pkg.stripeLink ? 10 : 0 }}
+              >
+                {tr(s.payDeposit, lang)} — ${Math.round(pkg.precioDesde * 0.25).toLocaleString()}
+              </a>
+            )}
 
             {pkg.market === 'ca' && pkg.stripeLink && (
               <a className="btn btn-secondary" href={pkg.stripeLink} target="_blank" rel="noreferrer">
