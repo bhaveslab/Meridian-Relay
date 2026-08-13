@@ -25,9 +25,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return
   }
 
-  const sheetId = process.env.GOOGLE_SHEET_ID
-  const clientEmail = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL
-  const privateKey = process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n')
+  // .trim() guards against stray whitespace/newlines from a copy-paste
+  // accident in the Vercel dashboard (e.g. a duplicated/blank-line-padded
+  // value) — it won't fix a genuinely wrong value, just stray padding
+  // around a correct one.
+  const sheetId = process.env.GOOGLE_SHEET_ID?.trim()
+  const clientEmail = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL?.trim()
+  const privateKey = process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n').trim()
 
   if (!sheetId || !clientEmail || !privateKey) {
     res.status(500).json({ error: 'Sheets sync is not configured (missing GOOGLE_SHEET_ID / GOOGLE_SERVICE_ACCOUNT_EMAIL / GOOGLE_PRIVATE_KEY)' })
