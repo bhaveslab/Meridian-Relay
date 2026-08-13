@@ -68,28 +68,29 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     // have nowhere to go in this log. See README for the open item.
     const paymentTypeLabel: Record<string, string> = { cash: 'Cash', card: 'Card', trade: 'Trade' }
 
-    await sheets.spreadsheets.values.append({
+    const row = [
+      sale.timestamp,
+      sale.businessName,
+      sale.packageNameEn,
+      // Deliberate market check, not a fallback — a US sale's null
+      // comision always logs as the literal 'negotiated', never 0
+      // or blank (which would misread as "no commission").
+      sale.comision === null ? 'negotiated' : sale.comision,
+      paymentTypeLabel[sale.paymentMethod] ?? sale.paymentMethod,
+      sale.notes ?? '',
+      '',
+      sale.referrerName,
+    ]
+    console.log('registrar-venta request body', JSON.stringify(sale))
+    console.log('Sheets append row', JSON.stringify(row))
+
+    const appendResult = await sheets.spreadsheets.values.append({
       spreadsheetId: sheetId,
       range: 'A1',
       valueInputOption: 'USER_ENTERED',
-      requestBody: {
-        values: [
-          [
-            sale.timestamp,
-            sale.businessName,
-            sale.packageNameEn,
-            // Deliberate market check, not a fallback — a US sale's null
-            // comision always logs as the literal 'negotiated', never 0
-            // or blank (which would misread as "no commission").
-            sale.comision === null ? 'negotiated' : sale.comision,
-            paymentTypeLabel[sale.paymentMethod] ?? sale.paymentMethod,
-            sale.notes ?? '',
-            '',
-            sale.referrerName,
-          ],
-        ],
-      },
+      requestBody: { values: [row] },
     })
+    console.log('Sheets append response', JSON.stringify(appendResult.data))
 
     res.status(200).json({ ok: true })
   } catch (err) {
