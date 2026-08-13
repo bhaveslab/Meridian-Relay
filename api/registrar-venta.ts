@@ -17,6 +17,7 @@ interface SaleBody {
   // dollar figure to fall back on. See comment at the append call below.
   comision: number | null
   paymentMethod: string
+  tradeDetails?: string
   notes?: string
 }
 
@@ -70,11 +71,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     // Column order matches the "Meridian Relay — Sales Log" sheet's actual
     // header row: Date | Business | Package | Commission | Payment Type |
-    // Trade Details | Delivered to Engineer | Referrer | Phone | Email.
-    // Phone/Email were added as trailing columns (not inserted between
-    // existing ones) so already-logged rows don't shift. "Delivered to
-    // Engineer" is a manual ops field the app has no data for, so it's
-    // always left blank for staff to fill in later.
+    // Trade Details | Delivered to Engineer | Referrer | Phone | Email |
+    // Notes. Phone/Email/Notes were added as trailing columns (not
+    // inserted between existing ones) so already-logged rows don't shift.
+    // "Delivered to Engineer" is a manual ops field the app has no data
+    // for, so it's always left blank for staff to fill in later.
+    //
+    // Trade Details is only meaningful for trade-payment sales (what was
+    // traded) — Notes is a separate general field (e.g. callback timing)
+    // and never overloads the Trade Details column.
     //
     // Package name always logs in English (sale.packageNameEn, sourced
     // from packages-*.json name.en) so the sheet stays consistent
@@ -95,7 +100,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       // or blank (which would misread as "no commission").
       sale.comision === null ? 'negotiated' : sale.comision,
       paymentTypeLabel[sale.paymentMethod] ?? sale.paymentMethod,
-      sale.notes ?? '',
+      sale.tradeDetails ?? '',
       '',
       sale.referrerName,
       // Leading apostrophe forces Sheets to store this as literal text —
@@ -103,6 +108,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       // hint and silently drops it, destroying the country code.
       `'${sale.phone}`,
       sale.email,
+      sale.notes ?? '',
     ]
     console.log('registrar-venta request body', JSON.stringify(sale))
     console.log('Sheets append row', JSON.stringify(row))

@@ -61,8 +61,16 @@
     "paymentCash": { "es": "Efectivo", "en": "Cash" },
     "paymentCard": { "es": "Tarjeta", "en": "Card" },
     "paymentTrade": { "es": "Intercambio / Trueque", "en": "Trade / Exchange" },
+    "tradeDetailsLabel": { "es": "Detalles del intercambio", "en": "Trade details" },
+    "tradeDetailsPlaceholder": {
+      "es": "¿Qué se está intercambiando?",
+      "en": "What's being traded?"
+    },
     "notesLabel": { "es": "Notas", "en": "Notes" },
-    "notesPlaceholder": { "es": "Opcional", "en": "Optional" },
+    "notesPlaceholder": {
+      "es": "Ej. Llamar después de las 5pm",
+      "en": "e.g. Call back after 5pm"
+    },
     "submitButton": { "es": "Guardar Venta", "en": "Save Sale" },
     "cancelButton": { "es": "Cancelar", "en": "Cancel" },
     "successMessage": { "es": "¡Venta registrada!", "en": "Sale logged!" },

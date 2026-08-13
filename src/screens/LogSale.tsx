@@ -31,6 +31,7 @@ export function LogSale({
   const [email, setEmail] = useState('')
   const [price, setPrice] = useState(pkg?.precioDesde ?? 0)
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('cash')
+  const [tradeDetails, setTradeDetails] = useState('')
   const [notes, setNotes] = useState('')
   const [businessNameError, setBusinessNameError] = useState(false)
   const [phoneError, setPhoneError] = useState<'required' | 'invalid' | null>(null)
@@ -72,6 +73,9 @@ export function LogSale({
       // negotiated (null), never a flat CA-style dollar commission.
       comision: pkg.market === 'ca' ? pkg.comision : null,
       paymentMethod,
+      // Only trade sales carry trade details — anything typed in before
+      // switching payment method away from 'trade' is dropped, not synced.
+      tradeDetails: paymentMethod === 'trade' ? tradeDetails.trim() : '',
       notes: notes.trim(),
       synced: false,
     }
@@ -177,6 +181,18 @@ export function LogSale({
               </button>
             </div>
           </div>
+
+          {paymentMethod === 'trade' && (
+            <div className="form-field">
+              <label htmlFor="trade-details">{tr(s.tradeDetailsLabel, lang)}</label>
+              <textarea
+                id="trade-details"
+                value={tradeDetails}
+                placeholder={tr(s.tradeDetailsPlaceholder, lang)}
+                onChange={(e) => setTradeDetails(e.target.value)}
+              />
+            </div>
+          )}
 
           <div className="form-field">
             <label htmlFor="notes">{tr(s.notesLabel, lang)}</label>

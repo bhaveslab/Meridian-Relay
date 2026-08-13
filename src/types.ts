@@ -69,6 +69,10 @@ export interface Sale {
   // dollar figure to fall back on. See LogSale.tsx / MySales.tsx.
   comision: number | null
   paymentMethod: PaymentMethod
+  // Only meaningful when paymentMethod is 'trade' — what was traded, not
+  // general notes. Kept separate from `notes` so the two map to their own
+  // columns in the sheet instead of one field overloading both meanings.
+  tradeDetails: string
   notes: string
   synced: boolean
 }
