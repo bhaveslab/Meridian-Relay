@@ -38,7 +38,8 @@
         "en": "It's not that something's missing — what they've already built deserves to be seen by more people."
       },
       "stripeLink": "",
-      "depositLink": ""
+      "depositLink": "https://buy.stripe.com/bJe7sEg2UgWmcbsf7BbQY0o",
+      "depositAmount": 25
     },
     {
       "id": 2,
@@ -75,7 +76,8 @@
       "precioDesde": 350,
       "comision": 100,
       "stripeLink": "",
-      "depositLink": ""
+      "depositLink": "https://buy.stripe.com/4gM8wIbME9tU3EW5x1bQY0p",
+      "depositAmount": 100
     },
     {
       "id": 3,
@@ -112,7 +114,8 @@
       "precioDesde": 750,
       "comision": 200,
       "stripeLink": "",
-      "depositLink": ""
+      "depositLink": "https://buy.stripe.com/4gM28k4kcbC2b7o1gLbQY0q",
+      "depositAmount": 350
     },
     {
       "id": 4,
@@ -149,7 +152,8 @@
       "precioDesde": 1500,
       "comision": 350,
       "stripeLink": "",
-      "depositLink": ""
+      "depositLink": "https://buy.stripe.com/14A9AM4kc7lM3EWbVpbQY0r",
+      "depositAmount": 500
     }
   ]
 }

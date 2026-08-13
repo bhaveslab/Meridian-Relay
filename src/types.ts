@@ -31,10 +31,13 @@ export interface CaPackage {
   // Full-price Stripe Payment Link — deliberately left empty at launch
   // (not deferred by accident); "Pay by Card" only renders when this is set.
   stripeLink: string
-  // Separate 25%-of-precioDesde deposit Stripe Payment Link, used to kick
-  // off work before the full price is collected. Independent of
-  // stripeLink — a package can have one, both, or neither set.
+  // Separate deposit Stripe Payment Link, used to kick off work before the
+  // full price is collected. Independent of stripeLink — a package can
+  // have one, both, or neither set. depositAmount is a fixed dollar figure
+  // set deliberately per package (sized to roughly cover commission), not
+  // a computed percentage of precioDesde.
   depositLink: string
+  depositAmount: number
 }
 
 export interface UsPackageSubtier {

@@ -115,7 +115,7 @@ export function PackageDetail({
                 rel="noreferrer"
                 style={{ marginBottom: pkg.stripeLink ? 10 : 0 }}
               >
-                {tr(s.payDeposit, lang)} — ${Math.round(pkg.precioDesde * 0.25).toLocaleString()}
+                {tr(s.payDeposit, lang)} — ${pkg.depositAmount.toLocaleString()}
               </a>
             )}
 
