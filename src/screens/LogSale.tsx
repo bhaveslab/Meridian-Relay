@@ -18,22 +18,40 @@ export function LogSale({
   const s = strings.logSale
   const c = strings.common
 
+  // Basic format checks — not strict, just enough to catch empty or
+  // obviously malformed entries (e.g. "asdf" for a phone, "bob" for email).
+  const PHONE_PATTERN = /^[0-9+()\-.\s]{7,}$/
+  const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
   const [businessName, setBusinessName] = useState('')
-  const [contactInfo, setContactInfo] = useState('')
+  const [phone, setPhone] = useState('')
+  const [email, setEmail] = useState('')
   const [price, setPrice] = useState(pkg?.precioDesde ?? 0)
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('cash')
   const [notes, setNotes] = useState('')
-  const [error, setError] = useState(false)
+  const [businessNameError, setBusinessNameError] = useState(false)
+  const [phoneError, setPhoneError] = useState<'required' | 'invalid' | null>(null)
+  const [emailError, setEmailError] = useState<'required' | 'invalid' | null>(null)
 
   if (!pkg) return null
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault()
     if (!pkg) return
-    if (!businessName.trim()) {
-      setError(true)
-      return
-    }
+
+    const trimmedPhone = phone.trim()
+    const trimmedEmail = email.trim()
+
+    const hasBusinessName = businessName.trim().length > 0
+    setBusinessNameError(!hasBusinessName)
+
+    const nextPhoneError = !trimmedPhone ? 'required' : !PHONE_PATTERN.test(trimmedPhone) ? 'invalid' : null
+    setPhoneError(nextPhoneError)
+
+    const nextEmailError = !trimmedEmail ? 'required' : !EMAIL_PATTERN.test(trimmedEmail) ? 'invalid' : null
+    setEmailError(nextEmailError)
+
+    if (!hasBusinessName || nextPhoneError || nextEmailError) return
 
     const sale: Sale = {
       id: typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : String(Date.now()),
@@ -44,7 +62,8 @@ export function LogSale({
       packageNameEn: pkg.name.en,
       packageNameLocal: tr(pkg.name, lang),
       businessName: businessName.trim(),
-      contactInfo: contactInfo.trim(),
+      phone: trimmedPhone,
+      email: trimmedEmail,
       price,
       // Deliberate market check, not a fallback — US sales are always
       // negotiated (null), never a flat CA-style dollar commission.
@@ -88,22 +107,45 @@ export function LogSale({
               placeholder={tr(s.businessNamePlaceholder, lang)}
               onChange={(e) => {
                 setBusinessName(e.target.value)
-                if (error) setError(false)
+                if (businessNameError) setBusinessNameError(false)
               }}
               autoFocus
             />
-            {error && <div className="field-error">{tr(s.businessNameRequired, lang)}</div>}
+            {businessNameError && <div className="field-error">{tr(s.businessNameRequired, lang)}</div>}
           </div>
 
           <div className="form-field">
-            <label htmlFor="contact-info">{tr(s.contactLabel, lang)}</label>
+            <label htmlFor="phone">{tr(s.phoneLabel, lang)}</label>
             <input
-              id="contact-info"
-              type="text"
-              value={contactInfo}
-              placeholder={tr(s.contactPlaceholder, lang)}
-              onChange={(e) => setContactInfo(e.target.value)}
+              id="phone"
+              type="tel"
+              value={phone}
+              placeholder={tr(s.phonePlaceholder, lang)}
+              onChange={(e) => {
+                setPhone(e.target.value)
+                if (phoneError) setPhoneError(null)
+              }}
             />
+            {phoneError && (
+              <div className="field-error">{tr(phoneError === 'required' ? s.phoneRequired : s.phoneInvalid, lang)}</div>
+            )}
+          </div>
+
+          <div className="form-field">
+            <label htmlFor="email">{tr(s.emailLabel, lang)}</label>
+            <input
+              id="email"
+              type="email"
+              value={email}
+              placeholder={tr(s.emailPlaceholder, lang)}
+              onChange={(e) => {
+                setEmail(e.target.value)
+                if (emailError) setEmailError(null)
+              }}
+            />
+            {emailError && (
+              <div className="field-error">{tr(emailError === 'required' ? s.emailRequired : s.emailInvalid, lang)}</div>
+            )}
           </div>
 
           <div className="form-field">

@@ -62,7 +62,8 @@ export interface Sale {
   packageNameEn: string
   packageNameLocal: string
   businessName: string
-  contactInfo: string
+  phone: string
+  email: string
   price: number
   // null means "negotiated" (always the case for US sales) — never a
   // dollar figure to fall back on. See LogSale.tsx / MySales.tsx.

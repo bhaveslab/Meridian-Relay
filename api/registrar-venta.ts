@@ -10,7 +10,8 @@ interface SaleBody {
   packageNameEn: string
   packageNameLocal: string
   businessName: string
-  contactInfo?: string
+  phone: string
+  email: string
   price: number
   // null means "negotiated" — always the case for US sales, never a
   // dollar figure to fall back on. See comment at the append call below.
@@ -44,6 +45,19 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return
   }
 
+  // Basic format checks mirroring the frontend — not strict, just enough to
+  // catch empty or obviously malformed entries reaching the sheet directly.
+  const PHONE_PATTERN = /^[0-9+()\-.\s]{7,}$/
+  const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  if (!sale?.phone || !PHONE_PATTERN.test(sale.phone)) {
+    res.status(400).json({ error: 'Missing or invalid phone number' })
+    return
+  }
+  if (!sale?.email || !EMAIL_PATTERN.test(sale.email)) {
+    res.status(400).json({ error: 'Missing or invalid email address' })
+    return
+  }
+
   try {
     const auth = new google.auth.JWT({
       email: clientEmail,
@@ -53,19 +67,21 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const sheets = google.sheets({ version: 'v4', auth })
 
     // Column order matches the "Meridian Relay — Sales Log" sheet's actual
-    // header row exactly: Date | Business | Package | Commission |
-    // Payment Type | Trade Details | Delivered to Engineer | Referrer.
-    // "Delivered to Engineer" is a manual ops field the app has no data
-    // for, so it's always left blank for staff to fill in later.
+    // header row: Date | Business | Package | Commission | Payment Type |
+    // Trade Details | Delivered to Engineer | Referrer | Phone | Email.
+    // Phone/Email were added as trailing columns (not inserted between
+    // existing ones) so already-logged rows don't shift. "Delivered to
+    // Engineer" is a manual ops field the app has no data for, so it's
+    // always left blank for staff to fill in later.
     //
     // Package name always logs in English (sale.packageNameEn, sourced
     // from packages-*.json name.en) so the sheet stays consistent
     // regardless of which language the referrer had the UI in — see
     // build spec §4.
     //
-    // NOTE: this sheet has no column for market, packageId, price, or
-    // contactInfo — those fields are captured by the app but currently
-    // have nowhere to go in this log. See README for the open item.
+    // NOTE: this sheet has no column for market, packageId, or price —
+    // those fields are captured by the app but currently have nowhere to
+    // go in this log. See README for the open item.
     const paymentTypeLabel: Record<string, string> = { cash: 'Cash', card: 'Card', trade: 'Trade' }
 
     const row = [
@@ -80,6 +96,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       sale.notes ?? '',
       '',
       sale.referrerName,
+      sale.phone,
+      sale.email,
     ]
     console.log('registrar-venta request body', JSON.stringify(sale))
     console.log('Sheets append row', JSON.stringify(row))
