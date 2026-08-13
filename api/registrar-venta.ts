@@ -98,7 +98,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       sale.notes ?? '',
       '',
       sale.referrerName,
-      sale.phone,
+      // Leading apostrophe forces Sheets to store this as literal text —
+      // without it, USER_ENTERED reads a leading "+" as a numeric/formula
+      // hint and silently drops it, destroying the country code.
+      `'${sale.phone}`,
       sale.email,
     ]
     console.log('registrar-venta request body', JSON.stringify(sale))
