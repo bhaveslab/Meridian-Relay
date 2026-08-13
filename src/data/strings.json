@@ -72,6 +72,20 @@
       "es": "Ej. Llamar después de las 5pm",
       "en": "e.g. Call back after 5pm"
     },
+    "kickoffDateLabel": { "es": "Día de inicio (opcional)", "en": "Kickoff day (optional)" },
+    "kickoffCheckingAvailability": { "es": "Consultando disponibilidad…", "en": "Checking availability…" },
+    "kickoffOffline": {
+      "es": "Sin conexión — no se puede verificar disponibilidad, se confirmará después de sincronizar.",
+      "en": "Offline — can't verify availability, we'll confirm after sync."
+    },
+    "kickoffFull": {
+      "es": "Ese día ya está lleno — elige otra fecha si es posible.",
+      "en": "That day is already full — please pick another if you can."
+    },
+    "kickoffSlotsLeft": {
+      "es": "cupos disponibles ese día",
+      "en": "slots open that day"
+    },
     "submitButton": { "es": "Guardar Venta", "en": "Save Sale" },
     "cancelButton": { "es": "Cancelar", "en": "Cancel" },
     "successMessage": { "es": "¡Venta registrada!", "en": "Sale logged!" },

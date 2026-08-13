@@ -1,8 +1,11 @@
-import { useState, type FormEvent } from 'react'
+import { useEffect, useState, type FormEvent } from 'react'
 import { useApp } from '../context/AppContext'
 import { tr } from '../lib/i18n'
 import strings from '../data/strings.json'
+import { fetchKickoffAvailability, type KickoffAvailability } from '../lib/availability'
 import type { PackageId, PaymentMethod, Sale } from '../types'
+
+const todayIso = () => new Date().toISOString().slice(0, 10)
 
 export function LogSale({
   packageId,
@@ -33,9 +36,17 @@ export function LogSale({
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('cash')
   const [tradeDetails, setTradeDetails] = useState('')
   const [notes, setNotes] = useState('')
+  const [kickoffDate, setKickoffDate] = useState('')
+  const [availability, setAvailability] = useState<KickoffAvailability | null>(null)
   const [businessNameError, setBusinessNameError] = useState(false)
   const [phoneError, setPhoneError] = useState<'required' | 'invalid' | null>(null)
   const [emailError, setEmailError] = useState<'required' | 'invalid' | null>(null)
+
+  // Advisory only — fetched once so the picker can show live status, but
+  // never blocks submission if it fails or the device is offline.
+  useEffect(() => {
+    fetchKickoffAvailability().then(setAvailability)
+  }, [])
 
   if (!pkg) return null
 
@@ -77,6 +88,7 @@ export function LogSale({
       // switching payment method away from 'trade' is dropped, not synced.
       tradeDetails: paymentMethod === 'trade' ? tradeDetails.trim() : '',
       notes: notes.trim(),
+      kickoffDate,
       synced: false,
     }
 
@@ -202,6 +214,28 @@ export function LogSale({
               placeholder={tr(s.notesPlaceholder, lang)}
               onChange={(e) => setNotes(e.target.value)}
             />
+          </div>
+
+          <div className="form-field">
+            <label htmlFor="kickoff-date">{tr(s.kickoffDateLabel, lang)}</label>
+            <input
+              id="kickoff-date"
+              type="date"
+              min={todayIso()}
+              value={kickoffDate}
+              onChange={(e) => setKickoffDate(e.target.value)}
+            />
+            {kickoffDate && (
+              <div className="field-error" style={{ color: 'var(--relay-ink-soft)' }}>
+                {availability === null
+                  ? tr(s.kickoffCheckingAvailability, lang)
+                  : !availability.ok
+                    ? tr(s.kickoffOffline, lang)
+                    : (availability.counts[kickoffDate] ?? 0) >= availability.capacity
+                      ? tr(s.kickoffFull, lang)
+                      : `${availability.capacity - (availability.counts[kickoffDate] ?? 0)} ${tr(s.kickoffSlotsLeft, lang)}`}
+              </div>
+            )}
           </div>
 
           <button type="submit" className="btn btn-primary">

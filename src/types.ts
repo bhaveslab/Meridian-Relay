@@ -83,5 +83,10 @@ export interface Sale {
   // columns in the sheet instead of one field overloading both meanings.
   tradeDetails: string
   notes: string
+  // Optional preferred kickoff day (YYYY-MM-DD), picked by the referrer
+  // against live availability from /api/kickoff-availability. Empty string
+  // means no date was picked. Capacity is advisory, never enforced
+  // server-side — see api/kickoff-availability.ts.
+  kickoffDate: string
   synced: boolean
 }

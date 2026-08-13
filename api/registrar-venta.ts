@@ -19,6 +19,7 @@ interface SaleBody {
   paymentMethod: string
   tradeDetails?: string
   notes?: string
+  kickoffDate?: string
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -72,10 +73,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     // Column order matches the "Meridian Relay — Sales Log" sheet's actual
     // header row: Date | Business | Package | Commission | Payment Type |
     // Trade Details | Delivered to Engineer | Referrer | Phone | Email |
-    // Notes. Phone/Email/Notes were added as trailing columns (not
-    // inserted between existing ones) so already-logged rows don't shift.
-    // "Delivered to Engineer" is a manual ops field the app has no data
-    // for, so it's always left blank for staff to fill in later.
+    // Notes | Kickoff Date. Trailing columns (not inserted between existing
+    // ones) so already-logged rows don't shift. "Delivered to Engineer" is
+    // a manual ops field the app has no data for, so it's always left
+    // blank for staff to fill in later.
+    //
+    // Kickoff Date (column L) is read by api/kickoff-availability.ts to
+    // compute per-day booking counts — keep that range in sync if this
+    // column ever moves.
     //
     // Trade Details is only meaningful for trade-payment sales (what was
     // traded) — Notes is a separate general field (e.g. callback timing)
@@ -109,6 +114,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       `'${sale.phone}`,
       sale.email,
       sale.notes ?? '',
+      sale.kickoffDate ?? '',
     ]
     console.log('registrar-venta request body', JSON.stringify(sale))
     console.log('Sheets append row', JSON.stringify(row))
