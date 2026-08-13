@@ -37,7 +37,7 @@
         "es": "No es que les falte algo — es que lo que ya tienen merece ser visto por más gente.",
         "en": "It's not that something's missing — what they've already built deserves to be seen by more people."
       },
-      "stripeLink": "",
+      "stripeLink": "https://buy.stripe.com/14A00caIAeOefnE1gLbQY0v",
       "depositLink": "https://buy.stripe.com/bJe7sEg2UgWmcbsf7BbQY0o",
       "depositAmount": 25
     },
@@ -75,7 +75,7 @@
       },
       "precioDesde": 350,
       "comision": 100,
-      "stripeLink": "",
+      "stripeLink": "https://buy.stripe.com/3cIbIU3g8axYejA4sXbQY0u",
       "depositLink": "https://buy.stripe.com/4gM8wIbME9tU3EW5x1bQY0p",
       "depositAmount": 100
     },
@@ -113,7 +113,7 @@
       },
       "precioDesde": 750,
       "comision": 200,
-      "stripeLink": "",
+      "stripeLink": "https://buy.stripe.com/bJe00c3g8cG65N49NhbQY0t",
       "depositLink": "https://buy.stripe.com/4gM28k4kcbC2b7o1gLbQY0q",
       "depositAmount": 350
     },
@@ -151,7 +151,7 @@
       },
       "precioDesde": 1500,
       "comision": 350,
-      "stripeLink": "",
+      "stripeLink": "https://buy.stripe.com/28EaEQdUM21s7Vc1gLbQY0s",
       "depositLink": "https://buy.stripe.com/14A9AM4kc7lM3EWbVpbQY0r",
       "depositAmount": 500
     }
