@@ -45,10 +45,13 @@
     "packageLabel": { "es": "Paquete", "en": "Package" },
     "businessNameLabel": { "es": "Nombre del negocio", "en": "Business name" },
     "businessNamePlaceholder": { "es": "Ej. Panadería Doña Rosa", "en": "e.g. Rosa's Bakery" },
-    "phoneLabel": { "es": "Teléfono / WhatsApp", "en": "Phone / WhatsApp" },
+    "phoneLabel": { "es": "Teléfono / WhatsApp (con código de país)", "en": "Phone / WhatsApp (with country code)" },
     "phonePlaceholder": { "es": "Ej. +502 5555 5555", "en": "e.g. +1 555 555 5555" },
     "phoneRequired": { "es": "Por favor escribe un número de teléfono.", "en": "Please enter a phone number." },
-    "phoneInvalid": { "es": "Ese número no parece válido.", "en": "That number doesn't look valid." },
+    "phoneInvalid": {
+      "es": "Incluye el código de país, ej. +502 5555 5555.",
+      "en": "Include the country code, e.g. +502 5555 5555."
+    },
     "emailLabel": { "es": "Correo electrónico", "en": "Email" },
     "emailPlaceholder": { "es": "Ej. nombre@negocio.com", "en": "e.g. name@business.com" },
     "emailRequired": { "es": "Por favor escribe un correo electrónico.", "en": "Please enter an email address." },

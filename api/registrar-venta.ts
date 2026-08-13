@@ -47,9 +47,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   // Basic format checks mirroring the frontend — not strict, just enough to
   // catch empty or obviously malformed entries reaching the sheet directly.
-  const PHONE_PATTERN = /^[0-9+()\-.\s]{7,}$/
+  // Phone requires a leading "+" and country code — CA referrers work off
+  // WhatsApp, which needs the full international number to be reachable.
+  const PHONE_PATTERN = /^\+[1-9]\d{7,14}$/
   const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  if (!sale?.phone || !PHONE_PATTERN.test(sale.phone)) {
+  if (!sale?.phone || !PHONE_PATTERN.test(sale.phone.replace(/[\s\-().]/g, ''))) {
     res.status(400).json({ error: 'Missing or invalid phone number' })
     return
   }

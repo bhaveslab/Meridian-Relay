@@ -20,8 +20,11 @@ export function LogSale({
 
   // Basic format checks — not strict, just enough to catch empty or
   // obviously malformed entries (e.g. "asdf" for a phone, "bob" for email).
-  const PHONE_PATTERN = /^[0-9+()\-.\s]{7,}$/
+  // Phone requires a leading "+" and country code — CA referrers work off
+  // WhatsApp, which needs the full international number to be reachable.
+  const PHONE_PATTERN = /^\+[1-9]\d{7,14}$/
   const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  const isValidPhone = (value: string) => PHONE_PATTERN.test(value.replace(/[\s\-().]/g, ''))
 
   const [businessName, setBusinessName] = useState('')
   const [phone, setPhone] = useState('')
@@ -45,7 +48,7 @@ export function LogSale({
     const hasBusinessName = businessName.trim().length > 0
     setBusinessNameError(!hasBusinessName)
 
-    const nextPhoneError = !trimmedPhone ? 'required' : !PHONE_PATTERN.test(trimmedPhone) ? 'invalid' : null
+    const nextPhoneError = !trimmedPhone ? 'required' : !isValidPhone(trimmedPhone) ? 'invalid' : null
     setPhoneError(nextPhoneError)
 
     const nextEmailError = !trimmedEmail ? 'required' : !EMAIL_PATTERN.test(trimmedEmail) ? 'invalid' : null
