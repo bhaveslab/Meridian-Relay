@@ -90,3 +90,72 @@ export interface Sale {
   kickoffDate: string
   synced: boolean
 }
+
+// --- Trade + Combined opportunity tracking ---------------------------------
+// Additive and parallel to Sale, never a replacement for it. A pure
+// Technology referral still goes through Sale exactly as before; this
+// covers Trade sourcing opportunities (buyers/suppliers moving goods
+// between the US and Central America) and the "Combined" case where one
+// contact has both a Technology need and a Trade opportunity — one
+// Opportunity record covers Combined, not two duplicate records.
+
+export type Division = 'technology' | 'trade' | 'both'
+export type TradeRole = 'buyer' | 'supplier' | 'both'
+export type TradeFlow = 'import' | 'export' | 'unsure'
+export type Recurrence = 'one-time' | 'recurring' | 'unsure'
+export type OpportunityStatus =
+  | 'new'
+  | 'initial-review'
+  | 'more-info-needed'
+  | 'buyer-needed'
+  | 'supplier-needed'
+  | 'match-identified'
+  | 'pricing-review'
+  | 'logistics-review'
+  | 'proposal-sent'
+  | 'negotiation'
+  | 'approved'
+  | 'in-progress'
+  | 'completed'
+  | 'declined'
+  | 'on-hold'
+
+export interface TradeDetails {
+  role: TradeRole
+  country: string
+  location: string
+  flow: TradeFlow
+  category: string
+  product: string
+  quantity: string
+  unit: string
+  recurrence: Recurrence
+  originCountry: string
+  destinationCountry: string
+  documentsLink: string
+  estimatedValue: number | null
+  commission: number | null
+}
+
+export interface TechDetails {
+  packageId: PackageId | null
+  packageNameLocal: string
+  estimatedValue: number | null
+  commission: number | null
+}
+
+export interface Opportunity {
+  id: string
+  timestamp: string
+  referrerName: string
+  division: Division
+  contactName: string
+  businessName: string
+  phone: string
+  email: string
+  status: OpportunityStatus
+  trade: TradeDetails | null // present when division is 'trade' or 'both'
+  tech: TechDetails | null // present when division is 'both' (pure 'technology' still goes through Sale)
+  notes: string
+  synced: boolean
+}

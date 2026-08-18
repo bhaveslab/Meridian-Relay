@@ -1,9 +1,11 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
-import type { Lang, Market, Package, Sale } from '../types'
+import type { Lang, Market, Opportunity, Package, Sale } from '../types'
 import packagesCa from '../data/packages-ca.json'
 import packagesUs from '../data/packages-us.json'
 import * as storage from '../lib/storage'
 import { syncPendingSales } from '../lib/sync'
+import * as opportunityStorage from '../lib/opportunityStorage'
+import { syncPendingOpportunities } from '../lib/opportunitySync'
 
 interface AppContextValue {
   referrerName: string
@@ -11,12 +13,15 @@ interface AppContextValue {
   market: Market
   packages: Package[]
   sales: Sale[]
+  opportunities: Opportunity[]
   onboarded: boolean
   setLang: (lang: Lang) => void
   setMarket: (market: Market) => void
   completeOnboarding: (name: string, lang: Lang, market: Market) => void
   logSale: (sale: Sale) => void
   refreshSync: () => void
+  logOpportunity: (opportunity: Opportunity) => void
+  refreshOpportunitySync: () => void
 }
 
 const AppContext = createContext<AppContextValue | null>(null)
@@ -26,6 +31,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [lang, setLangState] = useState<Lang>(() => storage.getLanguagePref() ?? 'es')
   const [market, setMarketState] = useState<Market>(() => storage.getMarket() ?? 'ca')
   const [sales, setSales] = useState<Sale[]>(() => storage.getSales())
+  const [opportunities, setOpportunities] = useState<Opportunity[]>(() => opportunityStorage.getOpportunities())
   const [onboarded, setOnboarded] = useState(
     () =>
       (storage.getReferrerName() ?? '').trim().length > 0 &&
@@ -45,6 +51,20 @@ export function AppProvider({ children }: { children: ReactNode }) {
     window.addEventListener('online', trySync)
     if (navigator.onLine) trySync()
     return () => window.removeEventListener('online', trySync)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  // Separate effect from the sales one above — never touches it, mirrors
+  // it exactly for the parallel opportunities queue.
+  useEffect(() => {
+    function trySyncOpportunities() {
+      syncPendingOpportunities(opportunityStorage.getOpportunities()).then(() =>
+        setOpportunities(opportunityStorage.getOpportunities()),
+      )
+    }
+    window.addEventListener('online', trySyncOpportunities)
+    if (navigator.onLine) trySyncOpportunities()
+    return () => window.removeEventListener('online', trySyncOpportunities)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -78,6 +98,18 @@ export function AppProvider({ children }: { children: ReactNode }) {
     syncPendingSales(storage.getSales()).then(() => setSales(storage.getSales()))
   }
 
+  function logOpportunity(opportunity: Opportunity) {
+    opportunityStorage.addOpportunity(opportunity)
+    setOpportunities(opportunityStorage.getOpportunities())
+    syncPendingOpportunities([opportunity]).then(() => setOpportunities(opportunityStorage.getOpportunities()))
+  }
+
+  function refreshOpportunitySync() {
+    syncPendingOpportunities(opportunityStorage.getOpportunities()).then(() =>
+      setOpportunities(opportunityStorage.getOpportunities()),
+    )
+  }
+
   return (
     <AppContext.Provider
       value={{
@@ -86,12 +118,15 @@ export function AppProvider({ children }: { children: ReactNode }) {
         market,
         packages,
         sales,
+        opportunities,
         onboarded,
         setLang,
         setMarket,
         completeOnboarding,
         logSale,
         refreshSync,
+        logOpportunity,
+        refreshOpportunitySync,
       }}
     >
       {children}

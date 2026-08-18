@@ -8,8 +8,9 @@ import { SyncBanner } from './components/SyncBanner'
 import { Onboarding } from './screens/Onboarding'
 import { Packages } from './screens/Packages'
 import { PackageDetail } from './screens/PackageDetail'
-import { LogSale } from './screens/LogSale'
+import { LogOpportunity } from './screens/LogOpportunity'
 import { MySales } from './screens/MySales'
+import { Opportunities } from './screens/Opportunities'
 import { Script } from './screens/Script'
 import type { PackageId } from './types'
 
@@ -18,6 +19,7 @@ type Screen =
   | { name: 'detail'; packageId: PackageId }
   | { name: 'logSale'; packageId: PackageId }
   | { name: 'mySales' }
+  | { name: 'opportunities' }
   | { name: 'script' }
 
 export default function App() {
@@ -28,7 +30,7 @@ export default function App() {
     return <Onboarding />
   }
 
-  const activeTab: 'packages' | 'mySales' | 'script' =
+  const activeTab: 'packages' | 'mySales' | 'opportunities' | 'script' =
     screen.name === 'detail' || screen.name === 'logSale' ? 'packages' : screen.name
 
   return (
@@ -57,14 +59,17 @@ export default function App() {
         )}
 
         {screen.name === 'logSale' && (
-          <LogSale
+          <LogOpportunity
             packageId={screen.packageId}
             onCancel={() => setScreen({ name: 'detail', packageId: screen.packageId })}
-            onDone={() => setScreen({ name: 'mySales' })}
+            onSaleDone={() => setScreen({ name: 'mySales' })}
+            onOpportunityDone={() => setScreen({ name: 'opportunities' })}
           />
         )}
 
         {screen.name === 'mySales' && <MySales />}
+
+        {screen.name === 'opportunities' && <Opportunities />}
 
         {screen.name === 'script' && <Script />}
       </div>
@@ -75,6 +80,13 @@ export default function App() {
         </button>
         <button className={activeTab === 'mySales' ? 'active' : ''} onClick={() => setScreen({ name: 'mySales' })} type="button">
           {tr(strings.nav.mySales, lang)}
+        </button>
+        <button
+          className={activeTab === 'opportunities' ? 'active' : ''}
+          onClick={() => setScreen({ name: 'opportunities' })}
+          type="button"
+        >
+          {tr(strings.nav.opportunities, lang)}
         </button>
         <button className={activeTab === 'script' ? 'active' : ''} onClick={() => setScreen({ name: 'script' })} type="button">
           {tr(strings.nav.script, lang)}
