@@ -18,6 +18,7 @@ type Screen =
   | { name: 'packages' }
   | { name: 'detail'; packageId: PackageId }
   | { name: 'logSale'; packageId: PackageId }
+  | { name: 'newOpportunity' }
   | { name: 'mySales' }
   | { name: 'opportunities' }
   | { name: 'script' }
@@ -31,7 +32,11 @@ export default function App() {
   }
 
   const activeTab: 'packages' | 'mySales' | 'opportunities' | 'script' =
-    screen.name === 'detail' || screen.name === 'logSale' ? 'packages' : screen.name
+    screen.name === 'detail' || screen.name === 'logSale'
+      ? 'packages'
+      : screen.name === 'newOpportunity'
+        ? 'opportunities'
+        : screen.name
 
   return (
     <div className="app-shell">
@@ -64,12 +69,24 @@ export default function App() {
             onCancel={() => setScreen({ name: 'detail', packageId: screen.packageId })}
             onSaleDone={() => setScreen({ name: 'mySales' })}
             onOpportunityDone={() => setScreen({ name: 'opportunities' })}
+            onNeedPackage={() => setScreen({ name: 'packages' })}
+          />
+        )}
+
+        {screen.name === 'newOpportunity' && (
+          <LogOpportunity
+            onCancel={() => setScreen({ name: 'opportunities' })}
+            onSaleDone={() => setScreen({ name: 'mySales' })}
+            onOpportunityDone={() => setScreen({ name: 'opportunities' })}
+            onNeedPackage={() => setScreen({ name: 'packages' })}
           />
         )}
 
         {screen.name === 'mySales' && <MySales />}
 
-        {screen.name === 'opportunities' && <Opportunities />}
+        {screen.name === 'opportunities' && (
+          <Opportunities onNewOpportunity={() => setScreen({ name: 'newOpportunity' })} />
+        )}
 
         {screen.name === 'script' && <Script />}
       </div>

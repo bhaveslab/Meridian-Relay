@@ -8,7 +8,7 @@ type Filter = 'all' | 'trade' | 'both'
 
 const statusLabels = strings.opportunityStatus as Record<string, LocalizedString>
 
-export function Opportunities() {
+export function Opportunities({ onNewOpportunity }: { onNewOpportunity: () => void }) {
   const { opportunities, lang, refreshOpportunitySync } = useApp()
   const [filter, setFilter] = useState<Filter>('all')
   const s = strings.opportunitiesList
@@ -20,6 +20,10 @@ export function Opportunities() {
   return (
     <div>
       <h1>{tr(s.title, lang)}</h1>
+
+      <button className="btn btn-primary" type="button" onClick={onNewOpportunity} style={{ marginBottom: 12 }}>
+        {tr(s.newButton, lang)}
+      </button>
 
       <div className="radio-group" style={{ marginBottom: 12 }}>
         <button type="button" className={filter === 'all' ? 'active' : ''} onClick={() => setFilter('all')}>

@@ -11,23 +11,34 @@ import type { Division, PackageId } from '../types'
 // Picking Technology here is functionally identical to the old direct
 // LogSale entry point; Trade/Both route into the new, separate
 // Opportunity flow instead.
+//
+// packageId is optional because this screen now has two entry points: the
+// original package → Detail → Log Sale path (packageId always set), and a
+// standalone "+ New Opportunity" entry with no package in context. Trade
+// and Combined both work fine with no packageId — Combined's package
+// picker just starts on "None" instead of preselecting one. Technology
+// can't work without a real package (LogSale requires one), so picking it
+// with no packageId available hands off to onNeedPackage instead of
+// rendering a broken form.
 export function LogOpportunity({
   packageId,
   onCancel,
   onSaleDone,
   onOpportunityDone,
+  onNeedPackage,
 }: {
-  packageId: PackageId
+  packageId?: PackageId
   onCancel: () => void
   onSaleDone: () => void
   onOpportunityDone: () => void
+  onNeedPackage: () => void
 }) {
   const { lang } = useApp()
   const [division, setDivision] = useState<Division | null>(null)
   const s = strings.opportunity
   const ls = strings.logSale
 
-  if (division === 'technology') {
+  if (division === 'technology' && packageId !== undefined) {
     return <LogSale packageId={packageId} onCancel={() => setDivision(null)} onDone={onSaleDone} />
   }
 
@@ -53,7 +64,11 @@ export function LogOpportunity({
         <p>{tr(s.pickerSubtitle, lang)}</p>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-          <button className="btn btn-secondary" type="button" onClick={() => setDivision('technology')}>
+          <button
+            className="btn btn-secondary"
+            type="button"
+            onClick={() => (packageId !== undefined ? setDivision('technology') : onNeedPackage())}
+          >
             {tr(s.divisionTechnology, lang)}
           </button>
           <button className="btn btn-secondary" type="button" onClick={() => setDivision('trade')}>

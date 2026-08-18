@@ -146,6 +146,7 @@
   },
   "opportunitiesList": {
     "title": { "es": "Comercio y Combinadas", "en": "Trade & Combined" },
+    "newButton": { "es": "+ Nueva Oportunidad", "en": "+ New Opportunity" },
     "empty": { "es": "Todavía no has registrado oportunidades.", "en": "You haven't logged any opportunities yet." },
     "filterAll": { "es": "Todas", "en": "All" },
     "filterTrade": { "es": "Comercio", "en": "Trade" },

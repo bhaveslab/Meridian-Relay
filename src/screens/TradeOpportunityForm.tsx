@@ -11,7 +11,10 @@ export function TradeOpportunityForm({
   onDone,
 }: {
   division: 'trade' | 'both'
-  packageId: PackageId
+  // Undefined when entered via the standalone "+ New Opportunity" entry
+  // point (no package in context) — the Tech package select just starts
+  // on "None" in that case instead of preselecting one.
+  packageId?: PackageId
   onCancel: () => void
   onDone: () => void
 }) {
@@ -46,8 +49,11 @@ export function TradeOpportunityForm({
   const [notes, setNotes] = useState('')
 
   // Tech section only applies when division === 'both'. Defaults to the
-  // package the referrer was already viewing when they started this flow.
-  const [techPackageId, setTechPackageId] = useState<string>(division === 'both' ? String(packageId) : '')
+  // package the referrer was already viewing when they started this flow,
+  // if any — the standalone entry point has no packageId to default to.
+  const [techPackageId, setTechPackageId] = useState<string>(
+    division === 'both' && packageId !== undefined ? String(packageId) : '',
+  )
   const [techEstimatedValue, setTechEstimatedValue] = useState('')
 
   const [contactNameError, setContactNameError] = useState(false)
